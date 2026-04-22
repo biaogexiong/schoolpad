@@ -271,7 +271,7 @@ filter: sepia(60%) hue-rotate(-20deg) brightness(0.9);
 <div class="btn" onclick="this.classList.toggle('active')">螢幕錄製</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="battbtn">省電模式</div>
 <div class="btn" onclick="this.classList.toggle('active')">AirDrop</div>
-<div class="btn" onclick="this.classList.toggle('active')" id="eyebtn">護眼模式</div>
+<div class="btn" onclick="eye_click" id="eyebtn">護眼模式</div>
 </div>
 </div>
 </div>
@@ -360,6 +360,7 @@ cc.classList.remove("show");
 
 function eye_click(){
   document.documentElement.classList.toggle("eye-mode");
+  eyebtn.classList.toggle('active')
 }
 /* 桌面上方開CC（手機） */
 document.addEventListener("touchend",e=>{
