@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<style>
+body{
+  margin:0;
+  background:black;
+  font-family:-apple-system,BlinkMacSystemFont,Arial;
+  overflow:hidden;
+  -webkit-user-select:none;
+  -ms-user-select:none;
+  user-select:none;
+}*{ -webkit-touch-callout:none; }
+
+#camera{ position:fixed; top:0; left:0; width:100vw; height:100vh; object-fit:cover; }
+
+.topbar{ position:fixed; top:0; width:100%; display:flex; justify-content:space-between; padding:10px 15px; color:white; font-size:14px; background:linear-gradient(to bottom, rgba(0,0,0,0.6), transparent); }
+
+.bottombar{ position:fixed; bottom:0; width:100%; display:flex; justify-content:center; align-items:center; padding:20px; background:linear-gradient(to top, rgba(0,0,0,0.7), transparent); }
+
+.shutter{ width:70px; height:70px; border-radius:50%; border:5px solid white; background:rgba(255,255,255,0.2); cursor:pointer; }
+
+.preview{ position:fixed; right:10px; bottom:110px; width:60px; height:60px; border:2px solid white; object-fit:cover; }
+
+button{ background:none; border:none; color:white; font-size:14px; } </style>
+
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false"><video id="camera" autoplay playsinline></video> <img id="preview" class="preview" />
+
+<div class="topbar">
+  <button onclick="switchMode()">照片</button>
+  <div>相機</div>
+  <button onclick="toggleFlash()">⚡</button>
+</div><div class="bottombar">
+  <button class="shutter" onclick="takePhoto()"></button>
+</div><canvas id="canvas" style="display:none"></canvas>
+
+<script>
+// 禁止縮放
+window.addEventListener('wheel', function(e){
+  if(e.ctrlKey) e.preventDefault();
+}, { passive:false });
+
+window.addEventListener('touchmove', function(e){
+  if(e.scale !== 1) e.preventDefault();
+}, { passive:false });
+
+let video = document.getElementById("camera");
+let canvas = document.getElementById("canvas");
+let preview = document.getElementById("preview");
+let flash = false;
+
+navigator.mediaDevices.getUserMedia({ video: true })
+.then(stream => {
+  video.srcObject = stream;
+})
+.catch(err => {
+  alert("無法開啟相機：" + err);
+});
+
+function takePhoto(){
+  let ctx = canvas.getContext("2d");
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  ctx.drawImage(video, 0, 0);
+  
+  let img = canvas.toDataURL("image/png");
+  preview.src = img;
+}
+
+function toggleFlash(){
+  flash = !flash;
+  alert("⚡ 閃光燈：" + (flash ? "開" : "關"));
+}
+</script></body>
+</html>
