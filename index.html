@@ -207,11 +207,18 @@ filter: sepia(60%) hue-rotate(-20deg) brightness(0.9);
 }
 
 .slider{
-width:80%;
-height:2px;
-bottom:5px;
+position:fixed;
+bottom:10px;
 left:50%;
-background: #888;
+transform:translateX(-50%);
+
+width:140px;
+height:5px;
+
+background:rgba(255,255,255,0.7);
+backdrop-filter: blur(4px);
+
+border-radius:999px;
 }
 </style>
 </head>
