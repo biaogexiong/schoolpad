@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>學校平板模擬</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+user-select:none;
+-webkit-user-select:none;
+-webkit-touch-callout:none;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+font-family:sans-serif;
+touch-action:none;
+}
+
+/* 背景 */
+body{
+background:url("https://biaogexiong.github.io/schoolpad/images/background.webp");
+background-size:cover;
+background-position:center;
+}
+
+/* ===== 鎖屏 ===== */
+.lock{
+position:fixed;
+inset:0;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999;
+}
+
+.lock-bg{
+position:absolute;
+inset:0;
+background:rgba(0,0,0,0.35);
+backdrop-filter:blur(12px);
+}
+
+.lock-content{
+position:relative;
+text-align:center;
+color:white;
+}
+
+.time-big{
+font-size:64px;
+font-weight:300;
+}
+
+.date{
+font-size:16px;
+opacity:0.8;
+}
+
+.hint{
+margin-top:20px;
+font-size:13px;
+opacity:0.6;
+}
+
+/* ===== 桌面 ===== */
+.home{
+position:fixed;
+inset:0;
+z-index:10;
+display:none;
+}
+
+/* 狀態列 */
+.statusbar{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:40px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 15px;
+color:white;
+font-size:14px;
+z-index:50;
+}
+
+/* ===== 4x3 App（均勻） ===== */
+.app-grid{
+position:absolute;
+inset:0;
+
+display:grid;
+grid-template-columns:repeat(4,1fr);
+grid-template-rows:repeat(3,1fr);
+
+place-items:center;
+padding:80px 20px 120px 20px;
+gap:10px;
+}
+
+.app{
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+color:white;
+font-size:12px;
+text-align:center;
+}
+
+.app img{
+width:62px;
+height:62px;
+border-radius:16px;
+}
+
+/* Dock */
+.dock{
+position:fixed;
+bottom:18px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+gap:15px;
+padding:12px 18px;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(20px);
+border-radius:25px;
+z-index:20;
+}
+
+.dock img{
+width:55px;
+height:55px;
+border-radius:14px;
+}
+
+/* ===== 控制中心 ===== */
+.cc-overlay{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.15);
+backdrop-filter:blur(12px);
+opacity:0;
+pointer-events:none;
+transition:0.25s;
+z-index:100;
+}
+
+.cc{
+position:absolute;
+bottom:-450px;
+left:50%;
+transform:translateX(-50%);
+width:92%;
+max-width:420px;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(30px);
+border-radius:30px;
+padding:20px;
+transition:0.35s;
+}
+
+.cc-overlay.show{
+opacity:1;
+pointer-events:auto;
+}
+
+.cc-overlay.show .cc{
+bottom:60px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+}
+
+.btn{
+background:rgba(255,255,255,0.3);
+padding:18px;
+border-radius:18px;
+text-align:center;
+color:white;
+font-size:14px;
+}
+
+.btn.active{
+background:rgba(0,150,255,0.6);
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- ===== 鎖屏 ===== -->
+<div class="lock" id="lock">
+<div class="lock-bg"></div>
+<div class="lock-content">
+<div class="time-big" id="lockTime">10:12</div>
+<div class="date" id="lockDate">星期六</div>
+<div class="hint">上滑解鎖</div>
+</div>
+</div>
+
+<!-- ===== 桌面 ===== -->
+<div class="home" id="home">
+
+<div class="statusbar">
+<div id="time">10:12</div>
+<div>🔋100%</div>
+</div>
+
+<!-- 4x3 桌面 -->
+<div class="app-grid">
+
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/book.png"><div>書籍</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/doit.png"><div>行事曆</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/camera.png"><div>相機</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/clock.png"><div>時鐘</div></div>
+
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/contact.png"><div>聯絡人</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/facetime.png"><div>FaceTime</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/files.png"><div>檔案</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/find.png"><div>尋找</div></div>
+
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/garageband.png"><div>GarageBand</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/healthy.png"><div>健康</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/family.png"><div>家庭</div></div>
+<div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/selfservice.png"><div>SelfService</div></div>
+
+</div>
+
+<!-- Dock -->
+<div class="dock">
+<img src="https://biaogexiong.github.io/schoolpad/images/gclassroom.png">
+<img src="https://biaogexiong.github.io/schoolpad/images/facetime.png">
+<img src="https://biaogexiong.github.io/schoolpad/images/camera.png">
+<img src="https://biaogexiong.github.io/schoolpad/images/safari.png">
+</div>
+
+</div>
+
+<!-- ===== 控制中心 ===== -->
+<div class="cc-overlay" id="cc" onclick="closeCC()">
+<div class="cc" onclick="event.stopPropagation()">
+<div class="grid">
+<div class="btn" onclick="this.classList.toggle('active')">Wi-Fi</div>
+<div class="btn" onclick="this.classList.toggle('active')">藍牙</div>
+<div class="btn" onclick="this.classList.toggle('active')">飛航</div>
+<div class="btn" onclick="this.classList.toggle('active')">勿擾</div>
+</div>
+</div>
+</div>
+
+<script>
+
+/* ===== 狀態 ===== */
+let state="lock";
+
+/* ===== 時間 ===== */
+function updateTime(){
+let now=new Date();
+let h=String(now.getHours()).padStart(2,'0');
+let m=String(now.getMinutes()).padStart(2,'0');
+
+let days=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+
+document.getElementById("lockTime").innerText=h+":"+m;
+document.getElementById("lockDate").innerText=days[now.getDay()];
+document.getElementById("time").innerText=h+":"+m;
+}
+setInterval(updateTime,1000);
+updateTime();
+
+/* ===== 解鎖（手機） ===== */
+let startY=0;
+
+document.addEventListener("touchstart",e=>{
+startY=e.touches[0].clientY;
+});
+
+document.addEventListener("touchend",e=>{
+let endY=e.changedTouches[0].clientY;
+
+if(state==="lock" && startY - endY > 60){
+unlock();
+}
+});
+
+/* ===== 解鎖（電腦滑鼠） ===== */
+let mouse=false;
+let startMouseY=0;
+
+document.addEventListener("mousedown",e=>{
+mouse=true;
+startMouseY=e.clientY;
+});
+
+document.addEventListener("mouseup",e=>{
+if(!mouse)return;
+mouse=false;
+
+if(state==="lock" && startMouseY - e.clientY > 60){
+unlock();
+}
+});
+
+/* ===== 解鎖（滾輪） ===== */
+document.addEventListener("wheel",e=>{
+if(state==="lock" && e.deltaY < -30){
+unlock();
+}
+});
+
+/* ===== 解鎖函式 ===== */
+function unlock(){
+document.getElementById("lock").style.display="none";
+document.getElementById("home").style.display="block";
+state="home";
+}
+
+/* ===== 控制中心 ===== */
+let cc=document.getElementById("cc");
+
+function openCC(){
+cc.classList.add("show");
+}
+
+function closeCC(){
+cc.classList.remove("show");
+}
+
+/* 桌面上方開CC（手機） */
+document.addEventListener("touchend",e=>{
+if(state==="home" && e.changedTouches[0].clientY < 100){
+openCC();
+}
+});
+
+/* 桌面上方開CC（電腦） */
+document.addEventListener("mouseup",e=>{
+if(state==="home" && e.clientY < 100){
+openCC();
+}
+});
+
+/* 滾輪控制CC */
+document.addEventListener("wheel",e=>{
+if(state==="home"){
+if(e.deltaY < -30) openCC();
+if(e.deltaY > 30) closeCC();
+}
+});
+
+/* 禁右鍵 */
+document.addEventListener("contextmenu",e=>e.preventDefault());
+
+</script>
+
+</body>
+</html>
