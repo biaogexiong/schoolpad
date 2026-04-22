@@ -259,12 +259,16 @@ background:rgba(0,150,255,0.6);
 <div class="cc-overlay" id="cc" onclick="closeCC()">
 <div class="cc" onclick="event.stopPropagation()">
 <div class="grid">
-<div class="btn" onclick="this.classList.toggle('active')">WiFi</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="wifibtn">Wi-Fi</div>
 <div class="btn" onclick="this.classList.toggle('active')">藍牙</div>
-<div class="btn" onclick="this.classList.toggle('active')">飛航</div>
-<div class="btn" onclick="this.classList.toggle('active')">專注</div>
-<div class="btn" onclick="this.classList.toggle('active')">熱點</div>
-<div class="btn" onclick="this.classList.toggle('active')">螢幕輸出</div>
+<div class="btn" onclick="this.classList.toggle('active')">飛航模式</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="nobtn">專注模式</div>
+<div class="btn" onclick="this.classList.toggle('active')">個人熱點</div>
+<div class="btn" onclick="this.classList.toggle('active')">螢幕鏡像輸出</div>
+<div class="btn" onclick="this.classList.toggle('active')">螢幕錄製</div>
+<div class="btn" onclick="this.classList.toggle('active')">省電模式</div>
+<div class="btn" onclick="this.classList.toggle('active')">AirDrop</div>
+<div class="btn" onclick="this.classList.toggle('active')">護眼模式</div>
 </div>
 </div>
 </div>
@@ -334,6 +338,8 @@ function unlock(){
 document.getElementById("lock").style.display="none";
 document.getElementById("home").style.display="block";
 state="home";
+wifibtn.classList.toggle('active')
+nobtn.classList.toggle('active')
 }
 
 /* ===== 控制中心 ===== */
