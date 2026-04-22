@@ -205,6 +205,14 @@ background:rgba(0,150,255,0.6);
 .eye-mode{
 filter: sepia(60%) hue-rotate(-20deg) brightness(0.9);
 }
+
+.slider{
+width:80%;
+height:2px;
+bottom:5px;
+left:50%;
+background: #888;
+}
 </style>
 </head>
 
@@ -255,7 +263,8 @@ filter: sepia(60%) hue-rotate(-20deg) brightness(0.9);
 <img src="https://biaogexiong.github.io/schoolpad/images/camera.png">
 <img src="https://biaogexiong.github.io/schoolpad/images/safari.png">
 </div>
-
+  <div class="slider">
+  </div>
 </div>
 
 <!-- ===== 控制中心 ===== -->
@@ -343,7 +352,6 @@ document.getElementById("home").style.display="block";
 state="home";
 wifibtn.classList.toggle('active')
 nobtn.classList.toggle('active')
-eyebtn.classList.toggle('active')
 battbtn.classList.toggle('active')
 }
 
