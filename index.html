@@ -201,7 +201,10 @@ font-size:14px;
 .btn.active{
 background:rgba(0,150,255,0.6);
 }
-
+  
+.eye-mode{
+filter: sepia(60%) hue-rotate(-20deg) brightness(0.9);
+}
 </style>
 </head>
 
@@ -355,6 +358,9 @@ function closeCC(){
 cc.classList.remove("show");
 }
 
+function eye_click(){
+  document.documentElement.classList.toggle("eye-mode");
+}
 /* 桌面上方開CC（手機） */
 document.addEventListener("touchend",e=>{
 if(state==="home" && e.changedTouches[0].clientY < 100){
