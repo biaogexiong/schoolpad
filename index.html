@@ -240,7 +240,7 @@ border-radius:999px;
 
 <div class="statusbar">
 <div id="time">10:12</div>
-<div>🔋100%</div>
+<div>🛜🌙🔋67%</div>
 </div>
 
 <!-- 4x3 桌面 -->
@@ -279,14 +279,14 @@ border-radius:999px;
 <div class="cc" onclick="event.stopPropagation()">
 <div class="grid">
 <div class="btn" onclick="this.classList.toggle('active')" id="wifibtn">Wi-Fi</div>
-<div class="btn" onclick="this.classList.toggle('active')">藍牙</div>
-<div class="btn" onclick="this.classList.toggle('active')">飛航模式</div>
+<div class="btn" onclick="this.classList.toggle('active')" if="bluebtn">藍牙</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="flybtn">飛航模式</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="nobtn">專注模式</div>
-<div class="btn" onclick="this.classList.toggle('active')">個人熱點</div>
-<div class="btn" onclick="this.classList.toggle('active')">螢幕鏡像輸出</div>
-<div class="btn" onclick="this.classList.toggle('active')">螢幕錄製</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="hotbtn">個人熱點</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="scshbtn">螢幕鏡像輸出</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="scrbtn">螢幕錄製</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="battbtn">省電模式</div>
-<div class="btn" onclick="this.classList.toggle('active')">AirDrop</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="adbtn">AirDrop</div>
 <div class="btn" onclick="eye_click()" id="eyebtn">護眼模式</div>
 </div>
 </div>
