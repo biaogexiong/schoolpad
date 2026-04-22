@@ -266,9 +266,9 @@ background:rgba(0,150,255,0.6);
 <div class="btn" onclick="this.classList.toggle('active')">個人熱點</div>
 <div class="btn" onclick="this.classList.toggle('active')">螢幕鏡像輸出</div>
 <div class="btn" onclick="this.classList.toggle('active')">螢幕錄製</div>
-<div class="btn" onclick="this.classList.toggle('active')">省電模式</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="battbtn">省電模式</div>
 <div class="btn" onclick="this.classList.toggle('active')">AirDrop</div>
-<div class="btn" onclick="this.classList.toggle('active')">護眼模式</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="eyebtn">護眼模式</div>
 </div>
 </div>
 </div>
@@ -340,6 +340,8 @@ document.getElementById("home").style.display="block";
 state="home";
 wifibtn.classList.toggle('active')
 nobtn.classList.toggle('active')
+eyebtn.classList.toggle('active')
+battbtn.classList.toggle('active')
 }
 
 /* ===== 控制中心 ===== */
