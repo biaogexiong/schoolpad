@@ -293,22 +293,51 @@ border-radius:999px;
 </div>
 
 <script>
+  const icons = [
+  ["🛜","wifibtn"],
+  ["🔷","bluebtn"],
+  ["✈️","flybtn"],
+  ["🌙","nobtn"],
+  ["🔗","hotbtn"],
+  ["📺","scshbtn"],
+  ["📹","scrbtn"],
+  ["🪫","battbtn"],
+  ["📁","adbtn"],
+  ["👁️","eyebtn"]
+];
 
 /* ===== 狀態 ===== */
 let state="lock";
 
 /* ===== 時間 ===== */
 function updateTime(){
-let now=new Date();
-let h=String(now.getHours()).padStart(2,'0');
-let m=String(now.getMinutes()).padStart(2,'0');
 
-let days=["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+let now = new Date();
+let h = String(now.getHours()).padStart(2,'0');
+let m = String(now.getMinutes()).padStart(2,'0');
 
-document.getElementById("lockTime").innerText=h+":"+m;
-document.getElementById("lockDate").innerText=days[now.getDay()];
-document.getElementById("time").innerText=h+":"+m;
+let days = ["星期日","星期一","星期二","星期三","星期四","星期五","星期六"];
+
+// 表情符號
+let emoji = "";
+
+icons.forEach(i=>{
+  let el = document.getElementById(i[1]);
+  if(el && el.classList.contains("active")){
+    emoji += i[0];
+  }
+});
+
+// 鎖定畫面
+document.getElementById("lockTime").innerText = h + ":" + m;
+document.getElementById("lockDate").innerText = days[now.getDay()];
+
+// 狀態列時間
+document.getElementById("time").innerHTML =
+  (emoji ? emoji + "<br>" : "") + h + ":" + m;
+
 }
+
 setInterval(updateTime,1000);
 updateTime();
 
