@@ -240,7 +240,7 @@ border-radius:999px;
 
 <div class="statusbar">
 <div id="time">10:12</div>
-<div>67%</div>
+<div id="battxt">67%</div>
 </div>
 
 <!-- 4x3 桌面 -->
@@ -279,7 +279,7 @@ border-radius:999px;
 <div class="cc" onclick="event.stopPropagation()">
 <div class="grid">
 <div class="btn" onclick="this.classList.toggle('active')" id="wifibtn">Wi-Fi</div>
-<div class="btn" onclick="this.classList.toggle('active')" if="bluebtn">藍牙</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="bluebtn">藍牙</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="flybtn">飛航模式</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="nobtn">專注模式</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="hotbtn">個人熱點</div>
@@ -288,22 +288,24 @@ border-radius:999px;
 <div class="btn" onclick="this.classList.toggle('active')" id="battbtn">省電模式</div>
 <div class="btn" onclick="this.classList.toggle('active')" id="adbtn">AirDrop</div>
 <div class="btn" onclick="eye_click()" id="eyebtn">護眼模式</div>
+<div class="btn" onclick="this.classList.toggle('active')" id="flockbtn">鎖定方向</div>
 </div>
 </div>
 </div>
 
 <script>
   const icons = [
-  ["🛜","wifibtn"],
-  ["🔷","bluebtn"],
-  ["✈️","flybtn"],
-  ["🌙","nobtn"],
-  ["🔗","hotbtn"],
-  ["📺","scshbtn"],
-  ["📹","scrbtn"],
-  ["🪫","battbtn"],
-  ["📁","adbtn"],
-  ["👁️","eyebtn"]
+  ["網","wifibtn"],
+  ["藍","bluebtn"],
+  ["飛","flybtn"],
+  ["月","nobtn"],
+  ["熱","hotbtn"],
+  ["錄","scshbtn"],
+  ["分","scrbtn"],
+  ["省","battbtn"],
+  ["丟","adbtn"],
+  ["護","eyebtn"],
+  ["鎖","flcokbtn"]
 ];
 
 /* ===== 狀態 ===== */
@@ -334,7 +336,10 @@ document.getElementById("lockDate").innerText = days[now.getDay()];
 
 // 狀態列時間
 document.getElementById("time").innerHTML =
-  (emoji ? emoji + "<br>" : "") + h + ":" + m;
+h + ":" + m;
+  
+document.getElementById("battxt").innerHTML =
+emoji + "67%";
 
 }
 
@@ -435,3 +440,4 @@ document.addEventListener("contextmenu",e=>e.preventDefault());
 
 </body>
 </html>
+
