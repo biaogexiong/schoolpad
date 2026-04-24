@@ -70,6 +70,7 @@ text-shadow: 2px 2px 4px #000;
 margin-top:20px;
 font-size:13px;
 opacity:0.6;
+text-shadow: 1px 1px 3px #000;
 }
 
 /* ===== 桌面 ===== */
@@ -117,7 +118,7 @@ flex-direction:column;
 align-items:center;
 gap:6px;
 color:white;
-text-shadow: 2px 2px 2px #777;
+text-shadow: 2px 2px 4px #000;
 font-size:12px;
 text-align:center;
 }
@@ -126,7 +127,7 @@ text-align:center;
 width:62px;
 height:62px;
 border-radius:16px;
-box-shadow: 2px 2px 2px #777;
+box-shadow: 2px 2px 2px #000;
 }
 
 /* Dock */
@@ -155,7 +156,7 @@ box-shadow: 2px 2px 4px #000;
 .cc-overlay{
 position:fixed;
 inset:0;
-background:rgba(0,0,0,0.15);
+background:rgba(0,0,0,0.55);
 backdrop-filter:blur(12px);
 opacity:0;
 pointer-events:none;
@@ -165,7 +166,7 @@ z-index:100;
 
 .cc{
 position:absolute;
-bottom:-450px;
+bottom:20px;
 left:50%;
 transform:translateX(-50%);
 width:92%;
@@ -202,11 +203,11 @@ font-size:14px;
 }
 
 .btn.active{
-background:rgba(0,150,255,0.6);
+background:rgba(0,150,255,0.8);
 }
   
 .eye-mode{
-filter: sepia(60%) hue-rotate(-20deg) brightness(0.9);
+filter: sepia(20%) hue-rotate(-16deg) brightness(0.95);
 }
 
 .slider{
@@ -215,22 +216,13 @@ bottom:10px;
 left:50%;
 transform:translateX(-50%);
 
-width:50%;
+width:33.7%;
 height:5px;
 
 background:rgba(255,255,255,0.7);
 backdrop-filter: blur(4px);
 
 border-radius:999px;
-}
-
-@font-face{
-font-family: bgbatt;
-src: url(https://biaogenet.qzz.io/fonts/bgbatt.ttf);
-}
-
-.batttxtheme{
-font-family: bgbatt;
 }
 </style>
 </head>
@@ -273,9 +265,7 @@ font-family: bgbatt;
 <div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/healthy.png"><div>健康</div></div>
 <div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/family.png"><div>家庭</div></div>
 <div class="app"><img src="https://biaogexiong.github.io/schoolpad/images/selfservice.png"><div>SelfService</div></div>
-
 </div>
-
 <!-- Dock -->
 <div class="dock">
 <img src="https://biaogexiong.github.io/schoolpad/images/gclassroom.png">
