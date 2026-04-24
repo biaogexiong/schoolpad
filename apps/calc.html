@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+
+<!-- 禁止縮放 -->
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+
+/* 禁止選字 */
+user-select:none;
+-webkit-user-select:none;
+}
+
+/* 背景 */
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#1c1c1e,#000);
+font-family:-apple-system,BlinkMacSystemFont;
+}
+
+/* 液態玻璃容器 */
+.calculator{
+
+width:340px;
+padding:20px;
+border-radius:30px;
+}
+
+/* 顯示器 */
+.display{
+color:white;
+font-size:52px;
+text-align:right;
+padding:20px 10px;
+overflow:hidden;
+}
+
+/* 按鈕區 */
+.buttons{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:12px;
+}
+
+/* 按鈕 */
+button{
+height:70px;
+border:none;
+border-radius:50%;
+font-size:22px;
+color:white;
+
+background:rgba(255,255,255,0.1);
+backdrop-filter:blur(10px);
+
+cursor:pointer;
+}
+
+button:active{
+transform:scale(0.95);
+filter:brightness(1.2);
+}
+
+/* 灰色 */
+.gray{
+background:rgba(255,255,255,0.25);
+color:black;
+}
+
+/* 運算符 */
+.orange{
+background:#ff9f0a;
+}
+
+/* 0按鈕 */
+.zero{
+grid-column:span 2;
+border-radius:40px;
+text-align:left;
+padding-left:25px;
+}
+
+</style>
+</head>
+
+<body oncontextmenu="return false"> <!-- 禁止右鍵 -->
+
+<div class="calculator">
+
+<div id="display" class="display">0</div>
+
+<div class="buttons">
+
+<button class="gray" onclick="clearDisplay()">AC</button>
+<button class="gray" onclick="input('%')">%</button>
+<button class="gray" onclick="input('/')">÷</button>
+<button class="orange" onclick="input('*')">×</button>
+
+<button onclick="input('7')">7</button>
+<button onclick="input('8')">8</button>
+<button onclick="input('9')">9</button>
+<button class="orange" onclick="input('-')">−</button>
+
+<button onclick="input('4')">4</button>
+<button onclick="input('5')">5</button>
+<button onclick="input('6')">6</button>
+<button class="orange" onclick="input('+')">+</button>
+
+<button onclick="input('1')">1</button>
+<button onclick="input('2')">2</button>
+<button onclick="input('3')">3</button>
+<button class="orange" onclick="calculate()">=</button>
+
+<button class="zero" onclick="input('0')">0</button>
+<button onclick="input('.')">.</button>
+
+</div>
+</div>
+
+<script>
+
+/* 禁止鍵盤縮放 */
+document.addEventListener("keydown",function(e){
+if(e.ctrlKey && (e.key==="+"||e.key==="-"||e.key==="0")){
+e.preventDefault();
+}
+});
+
+/* 計算機 */
+let display=document.getElementById("display");
+
+function input(v){
+if(display.innerText==="0") display.innerText="";
+display.innerText+=v;
+}
+
+function clearDisplay(){
+display.innerText="0";
+}
+
+function calculate(){
+try{
+display.innerText=eval(display.innerText);
+}catch{
+display.innerText="Error";
+}
+}
+
+</script>
+
+</body>
+</html>
